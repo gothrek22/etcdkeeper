@@ -14,10 +14,12 @@ ENV HOST="127.0.0.1"
 ENV PORT="8080"
 ENV NAME="request"
 
+RUN apk add --no-cache ca-certificates
+
 WORKDIR /etcdkeeper
 COPY --from=builder /go/src/github.com/evildecay/etcdkeeper/etcdkeeper.bin .
 ADD assets assets
 
 EXPOSE ${PORT}
 
-ENTRYPOINT ./etcdkeeper.bin -h $HOST -p $PORT -n $NAME
+ENTRYPOINT ./etcdkeeper.bin -h $HOST -p $PORT 
